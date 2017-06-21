@@ -13,12 +13,6 @@
 
 #undef ODBCVER
 
-#if defined(_WIN32) || defined(__CYGWIN32__) || defined(__MINGW32__)
-#pragma message "_WIN32=" STRING(_WIN32)
-#pragma message "__CYGWIN32__=" STRING(__CYGWIN32__)
-#pragma message "__MINGW32__=" STRING(__MINGW32__)
-#include <windows.h>
-#endif
 #include <stdarg.h>
 #include <ctype.h>
 #include "ruby.h"
