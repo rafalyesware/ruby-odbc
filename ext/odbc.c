@@ -8,11 +8,14 @@
  * and redistribution of this file and for a
  * DISCLAIMER OF ALL WARRANTIES.
  *
- * $Id: odbc.c,v 1.78 2017/02/15 10:04:30 chw Exp chw $
+ * $Id: odbc.c,v 1.79 2018/02/28 15:15:24 chw Exp chw $
  */
 
 #undef ODBCVER
 
+#if defined(_WIN32) || defined(__CYGWIN32__) || defined(__MINGW32__)
+#include <windows.h>
+#endif
 #include <stdarg.h>
 #include <ctype.h>
 #include "ruby.h"
@@ -5209,6 +5212,7 @@ static struct {
 
     /* yielding ints */
     OPT_CONST_INT(SQL_AUTOCOMMIT, OPT_LEVEL_DBC),
+    OPT_CONST_INT(SQL_LOGIN_TIMEOUT, OPT_LEVEL_DBC),
     OPT_CONST_INT(SQL_NOSCAN, OPT_LEVEL_BOTH),
     OPT_CONST_INT(SQL_CONCURRENCY, OPT_LEVEL_BOTH),
     OPT_CONST_INT(SQL_QUERY_TIMEOUT, OPT_LEVEL_BOTH),
@@ -5337,6 +5341,7 @@ do_option(int argc, VALUE *argv, VALUE self, int isstmt, int op)
 	    (RTEST(val) ? SQL_NOSCAN_ON : SQL_NOSCAN_OFF);
 	break;
 
+    case SQL_LOGIN_TIMEOUT:
     case SQL_CONCURRENCY:
     case SQL_QUERY_TIMEOUT:
     case SQL_MAX_ROWS:
@@ -5394,6 +5399,12 @@ static VALUE
 dbc_timeout(int argc, VALUE *argv, VALUE self)
 {
     return do_option(argc, argv, self, 0, SQL_QUERY_TIMEOUT);
+}
+
+static VALUE
+dbc_login_timeout(int argc, VALUE *argv, VALUE self)
+{
+    return do_option(argc, argv, self, 0, SQL_LOGIN_TIMEOUT);
 }
 
 static VALUE
@@ -9249,6 +9260,8 @@ Init_odbc()
     rb_define_method(Cdbc, "maxrows=", dbc_maxrows, -1);
     rb_define_method(Cdbc, "timeout", dbc_timeout, -1);
     rb_define_method(Cdbc, "timeout=", dbc_timeout, -1);
+    rb_define_method(Cdbc, "login_timeout", dbc_login_timeout, -1);
+    rb_define_method(Cdbc, "login_timeout=", dbc_login_timeout, -1);
     rb_define_method(Cdbc, "maxlength", dbc_maxlength, -1);
     rb_define_method(Cdbc, "maxlength=", dbc_maxlength, -1);
     rb_define_method(Cdbc, "rowsetsize", dbc_rowsetsize, -1);

@@ -1,6 +1,13 @@
 ODBC binding for Ruby
 ---------------------
 
+Wed Feb 28 2018 version 0.99999 released
+
+	* update to compile with newer Ruby releases, thanks
+	  Lars Kanis for patch
+	* added ODBC::Database.login_timeout to get/set the
+	  SQL_LOGIN_TIMEOUT connection attribute
+
 Wed Feb 15 2017 version 0.99998 released
 
 	* minor update to compile with Ruby 2.4, thangs to Kevin Deisz

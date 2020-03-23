@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
     "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
-  <head> 
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <meta http-equiv="Content-Style-Type" content="text/css">
     <meta name="Keywords" lang="en" content="ODBC Binding for Ruby">
@@ -14,7 +14,7 @@
       }
       address { text-align: right }
       div.lastmodifed { text-align: right }
-      div.language { text-align: right }    
+      div.language { text-align: right }
       pre {
       white-space: pre;
       background-color: antiquewhite;
@@ -27,7 +27,7 @@
   <body>
     <h1><a name="reference">Ruby ODBC Reference</a></h1>
     <div class = "lastmodifed">
-      Last update: Wed, 15 February 2017
+      Last update: Wed, 28 February 2018
     </div>
     <hr>
     <div>
@@ -73,8 +73,10 @@
         <dd>Gets or sets the process-wide connection pooling attribute.
 	<dt><a name="ODBC::to_time1">
 	    <code>to_time(<var>timestamp</var>)</code></a>
-	<dt><a name="ODBC::to_time2"><code>to_time(<var>date</var>,[<var>time</var>])</code></a>
-	<dt><a name="ODBC::to_time3"><code>to_time(<var>time</var>,[<var>date</var>])</code></a>
+	<dt><a name="ODBC::to_time2">
+	    <code>to_time(<var>date</var>,[<var>time</var>])</code></a>
+	<dt><a name="ODBC::to_time3">
+	    <code>to_time(<var>time</var>,[<var>date</var>])</code></a>
         <dd>Creates a <code>Time</code> object from the specified arguments,
           which must be <a href="#ODBC::Date">ODBC::Date</a>,
           <a href="#ODBC::Time">ODBC::Time</a>, or
@@ -89,7 +91,7 @@
 	      [{|<var>dbc</var>| <var>block</var>}]</code></a>
 	<dd>If no block is specified, a connection to the given data source
 	  is established and a <a href="#ODBC::Database">ODBC::Database</a>
-	  object is returned, identifying that connection. Otherwise, 
+	  object is returned, identifying that connection. Otherwise,
 	  the block is executed with the database object. When the block
 	  is finished, the connection is automatically released.
 	  Options are:
@@ -383,10 +385,11 @@
           <a href="#dbc_get_option"><code>ODBC::Database.get_option</code></a>,
           <a href="#dbc_set_option"><code>ODBC::Database.set_option</code></a>,
           <a href="#stmt_get_option"><code>ODBC::Statement.get_option</code></a>,
-	  and	  
+	  and
           <a href="#stmt_set_option"><code>ODBC::Statement.set_option</code></a>
           yielding integers:
 	<dd><var>SQL_AUTOCOMMIT</var>,
+	  <var>SQL_LOGIN_TIMEOUT</var>,
 	  <var>SQL_CONCURRENCY</var>,
 	  <var>SQL_QUERY_TIMEOUT</var>,
 	  <var>SQL_MAX_ROWS</var>,
@@ -591,7 +594,7 @@
           of the underlying ODBC function <code>SQLGetInfo()</code> as a
           specific Ruby type the optional parameter <var>sql_type</var>
           can be given as e.g.
-          <code>ODBC::SQL_SMALLINT</code> (yielding integer), 
+          <code>ODBC::SQL_SMALLINT</code> (yielding integer),
           <code>ODBC::SQL_INTEGER</code> (yielding integer), and
           <code>ODBC::SQL_CHAR</code> (yielding string).
 	<dt><a name="run"><code>run(<var>sql</var>[,<var>args...</var>])</code></a>
@@ -668,9 +671,13 @@ aproc.statement.drop</pre>
 	<dt><a name="timeout"><code>timeout[=<var>intval</var>]</code></a>
 	<dd>Sets or queries the number of seconds to wait for queries to
 	  execute on the connection before returning.
+	<dt><a name="login_timeout">
+	    <code>login_timeout[=<var>intval</var>]</code></a>
+	<dd>Sets or queries the number of seconds to wait for a login to
+	  complete on the connection before returning.
 	<dt><a name="maxlength"><code>maxlength[=<var>intval</var>]</code></a>
 	<dd>Sets or queries the maximum amount of data that will be returned
-          from a character or binary column.
+	  from a character or binary column.
 	<dt><a name="cursortype">
 	    <code>cursortype[=<var>intval</var>]</code></a>
 	<dd>Sets or queries the cursor type used for fetches.
@@ -1262,7 +1269,7 @@ out_value = stmt.param_output_value(2);</pre>
 	<dd>Queries or sets attributes in the <var>attrs</var> Hash of the
 	  ODBC driver object. The <var>key</var>s and <var>value</var>s
 	  should be Strings.
-      </dl> 
+      </dl>
       <h3>singleton methods:</h3>
       <dl>
 	<dt><a name="ODBC::Driver.new"><code>new</code></a>
@@ -1291,7 +1298,7 @@ out_value = stmt.param_output_value(2);</pre>
 	   <a href="#ODBC::Statement">ODBC::Statement</a>.
 	<dt><code>[[<var>args*</var>]]</code>
 	<dd>Synonym for <code>call</code>.
-      </dl> 
+      </dl>
     </div>
     <div>
       <hr>
