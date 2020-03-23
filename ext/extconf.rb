@@ -19,6 +19,8 @@ def have_library_ex(lib, func="main", headers=nil)
 end
  
 dir_config("odbc")
+$CPPFLAGS+=" -DTRACING"
+
 have_header("version.h")
 have_header("sql.h") || begin
   puts "ERROR: sql.h not found"
